@@ -1,0 +1,32 @@
+
+
+# Market Sentiment and Trader Behavior Analysis
+
+This project analyzes how market sentiment influences trading behavior, including risk-taking (leverage), trading volume, and profit/loss outcomes. The analysis merges market sentiment classifications with detailed trade transaction data to extract key insights.
+
+## Repository Structure
+
+- `notebook1.ipynb`: Jupyter notebook containing the entire data cleaning, exploratory data analysis, and visualization code.
+- `csvfiles/`: Processed datasets and summary CSV files used for analysis.
+- `output/`: Visualizations and plots generated during the analysis as PNG images.
+- `report.pdf`: Final project report detailing the analysis, findings, and conclusions.
+- `README.md`: This file.
+
+## Getting Started
+
+1. Clone this repository.
+2. Open `notebook1.ipynb` in Jupyter Notebook or Jupyter Lab.
+3. Install required Python packages (if not already installed):
+4. Run the notebook cells sequentially to reproduce the data analysis and generate outputs.
+5. View the report `report.pdf` for a summary of findings.
+
+## Notes
+
+- Large dataset files are included in the `csvfiles/` folder.
+- Visual outputs are saved in the `output/` folder.
+- Ensure Python 3.x environment for compatibility.
+
+## Contact
+
+For any queries or issues, please contact: [kuldeep0009sharma@gmail.com]
+

@@ -1,8 +1,0 @@
-Project Name: Demo App
-
-Tech Stack:
-Python
-FastAPI
-
-Purpose:
-Testing AI persona system.
