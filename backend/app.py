@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from groq import Groq
 from dotenv import load_dotenv
@@ -15,6 +16,18 @@ client = Groq(
 
 # FastAPI App
 app = FastAPI()
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Simple Conversation Memory
 conversation_history = []
@@ -41,8 +54,8 @@ def chat(request: ChatRequest):
     result = search(request.message)
 
     knowledge = "\n\n".join(
-    result["documents"]
-)
+        result["documents"]
+    )
 
     # Build messages
     messages = [
@@ -98,11 +111,11 @@ Rules:
         }
     )
 
-    # Keep only last 10 messages
+    # Keep only recent messages
     if len(conversation_history) > 10:
         conversation_history.pop(0)
 
     return {
-    "reply": answer,
-    "sources": result["ids"]
-}
+        "reply": answer,
+        "sources": result["ids"]
+    }
