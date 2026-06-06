@@ -6,10 +6,22 @@ repos = requests.get(
     f"https://api.github.com/users/{username}/repos"
 ).json()
 
-with open("../data/github/repos.txt", "w", encoding="utf-8") as f:
+for repo in repos:
 
-    for repo in repos:
-        f.write(f"Repository: {repo['name']}\n")
-        f.write(f"Description: {repo.get('description')}\n\n")
+    repo_name = repo["name"]
 
-print("Saved")
+    print(f"Downloading {repo_name}")
+
+    readme_url = f"https://raw.githubusercontent.com/{username}/{repo_name}/main/README.md"
+
+    response = requests.get(readme_url)
+
+    if response.status_code == 200:
+
+        with open(
+            f"../data/github/{repo_name}.txt",
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            f.write(response.text)

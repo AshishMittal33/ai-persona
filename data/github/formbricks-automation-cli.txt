@@ -1,0 +1,116 @@
+# 📊 Formbricks Automation CLI
+## 🧠 Assignment Summary (Simple Words)
+
+This project automates Formbricks setup and data population.
+
+👉 Instead of manually creating users, surveys, and responses from the UI,
+
+👉 I built a CLI tool that does everything programmatically using APIs.
+
+## Demo
+
+https://youtu.be/IE0VkbFZM5o
+
+## ❓ What was the task?
+
+In simple terms:
+
+- Run Formbricks locally
+
+- Generate realistic dummy data using an LLM
+
+- Fill Formbricks with:
+
+    - Users
+
+    - Teams
+
+    - Surveys (with questions)
+
+    - Survey responses
+
+- Use APIs only (no manual UI work)
+
+## What I made
+
+A Python CLI
+
+It:
+
+- Creates surveys
+
+- Adds questions
+
+- Adds responses
+
+## How it works
+
+1. Start Formbricks
+
+    python main.py formbricks up
+
+3. Generate dummy data
+
+    python main.py formbricks generate
+
+
+Creates:
+
+- users.json
+
+- teams.json
+
+- surveys.json
+
+- responses.json
+
+3. Seed data into Formbricks
+   
+      python main.py formbricks seed
+
+4. Stop Formbricks
+
+     python main.py formbricks down
+
+
+## What you see in UI
+
+✅ 5 Surveys
+
+✅ Each survey has questions
+
+✅ Each survey shows response count
+
+✅ Survey status = In Progress
+
+This is correct.
+
+## What you don’t see (and why)
+
+- Users
+
+- Teams
+
+Formbricks does not show API-created users in UI.
+
+They are only used internally for responses.
+
+## Why this is useful
+
+- Saves manual work
+
+- Good for testing & demos
+
+- Shows API automation skills
+
+## Final result
+
+- Formbricks running locally
+
+- Surveys created automatically
+
+- Responses added automatically
+
+## Author
+
+Ashish Mittal

@@ -15,6 +15,7 @@ def search(query):
         n_results=3
     )
 
-    documents = results["documents"][0]
-
-    return "\n\n".join(documents)
+    return {
+        "documents": results["documents"][0],
+        "ids": results["ids"][0]
+    }

@@ -16,6 +16,9 @@ client = Groq(
 # FastAPI App
 app = FastAPI()
 
+# Simple Conversation Memory
+conversation_history = []
+
 
 # Request Model
 class ChatRequest(BaseModel):
@@ -35,14 +38,17 @@ def home():
 def chat(request: ChatRequest):
 
     # Retrieve relevant knowledge
-    knowledge = search(request.message)
+    result = search(request.message)
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role": "system",
-                "content": f"""
+    knowledge = "\n\n".join(
+    result["documents"]
+)
+
+    # Build messages
+    messages = [
+        {
+            "role": "system",
+            "content": f"""
 You are an AI representative.
 
 Knowledge:
@@ -55,16 +61,48 @@ Rules:
 - Never invent facts.
 - Be concise and professional.
 """
-            },
-            {
-                "role": "user",
-                "content": request.message
-            }
-        ]
+        }
+    ]
+
+    # Add conversation history
+    messages.extend(conversation_history)
+
+    # Current user message
+    messages.append(
+        {
+            "role": "user",
+            "content": request.message
+        }
+    )
+
+    # Call Groq
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=messages
     )
 
     answer = response.choices[0].message.content
 
+    # Save conversation
+    conversation_history.append(
+        {
+            "role": "user",
+            "content": request.message
+        }
+    )
+
+    conversation_history.append(
+        {
+            "role": "assistant",
+            "content": answer
+        }
+    )
+
+    # Keep only last 10 messages
+    if len(conversation_history) > 10:
+        conversation_history.pop(0)
+
     return {
-        "reply": answer
-    }
+    "reply": answer,
+    "sources": result["ids"]
+}
